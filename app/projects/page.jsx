@@ -16,37 +16,46 @@ import Link from "next/link";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import WorkSliderBtns from "@/components/WorkSliderBtns";
+import ProjectSliderBtns from "@/components/ProjectSliderBtns";
 
 const projects = [
   {
     num: "01",
     category: "frontend",
-    title: "Project 01",
+    title: "Yoom App",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores ea repellendus distinctio quasi maxime cupiditate. Sint aperiam aliquid rerum consequatur iure architecto, fugit, rem aliquam, est eveniet dolorem hic sit.",
+      "The Video Conference application aims to provide an efficient and flexible communication platform, enabling users to connect from anywhere in the world through video, audio, and messaging.",
     href: "",
     stack: [
       {
-        name: "HTML 5",
+        name: "NextJS",
       },
       {
-        name: "CSS 3",
+        name: "TypeScript",
       },
       {
-        name: "Javascript",
+        name: "Tailwind",
+      },
+      {
+        name: "Radix UI",
+      },
+      {
+        name: "Stream React",
+      },
+      {
+        name: "Clerk React",
       },
     ],
-    image: "/assets/work/thumb1.png",
-    live: "",
-    github: "",
+    image: "/assets/project/yoom-thumb.png",
+    live: "https://yoom-conferencing.vercel.app/",
+    github: "https://github.com/dinhdn218/Yoom",
   },
   {
     num: "02",
     category: "fullstack",
-    title: "Project 02",
+    title: "Task Management",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores ea repellendus distinctio quasi maxime cupiditate. Sint aperiam aliquid rerum consequatur iure architecto, fugit, rem aliquam, est eveniet dolorem hic sit.",
+      "A task management app helps users organize, track, and complete personal tasks. It provides features such as creating task lists, tracking progress, and updating task statuses.",
     href: "",
     stack: [
       {
@@ -59,7 +68,7 @@ const projects = [
         name: "Node.js",
       },
     ],
-    image: "/assets/work/thumb2.png",
+    image: "/assets/project/thumb2.png",
     live: "",
     github: "",
   },
@@ -78,13 +87,13 @@ const projects = [
         name: "Tailwind.css",
       },
     ],
-    image: "/assets/work/thumb3.png",
+    image: "/assets/project/thumb3.png",
     live: "",
     github: "",
   },
 ];
 
-const Work = () => {
+const Projects = () => {
   const [project, setProject] = useState(projects[0]);
 
   const handleSlideChange = (swiper) => {
@@ -114,10 +123,10 @@ const Work = () => {
                   {project?.num}
                 </div>
                 <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
-                  {project.category} project
+                  {project.title}
                 </h2>
                 <p className="text-white/60">{project.description}</p>
-                <ul className="flex gap-4">
+                <ul className="flex gap-4 flex-wrap">
                   {project.stack.map((item, index) => {
                     return (
                       <li key={index} className="text-xl text-accent">
@@ -129,7 +138,7 @@ const Work = () => {
                 </ul>
                 <div className="border border-white/20"></div>
                 <div className="flex items-center gap-4">
-                  <Link href={project.live}>
+                  <Link href={project.live} target="_blank">
                     <TooltipProvider delayDuration={100}>
                       <Tooltip>
                         <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
@@ -139,7 +148,7 @@ const Work = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </Link>
-                  <Link href={project.github}>
+                  <Link href={project.github} target="_blank">
                     <TooltipProvider delayDuration={100}>
                       <Tooltip>
                         <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
@@ -169,6 +178,7 @@ const Work = () => {
                         <div className="relative w-full h-full">
                           <Image
                             src={project.image}
+                            quality={100}
                             fill
                             className="object-cover"
                             alt=""
@@ -180,7 +190,7 @@ const Work = () => {
                   );
                 })}
                 {/* slider buttons */}
-                <WorkSliderBtns
+                <ProjectSliderBtns
                   containerStyles={
                     "flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none"
                   }
@@ -197,4 +207,4 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default Projects;

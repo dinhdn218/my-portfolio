@@ -30,7 +30,7 @@ const info = [
   {
     icon: <FaMapMarkerAlt />,
     title: "Address",
-    description: "220 Trieu Khuc, Tan Trieu, Thanh Tri, Ha Noi",
+    description: "18 Dinh Cong Thuong, Dinh Cong, Hoang Mai, Ha Noi",
   },
 ];
 
@@ -47,7 +47,7 @@ const Contact = () => {
             ease: "easeIn",
           },
         }}
-        className="min-h-[80vh] flex items-center justify-center py-12 xl:py-0"
+        className="min-h-[80vh] flex items-center justify-center py-12"
       >
         <div className="container mx-auto">
           <div className="flex flex-col xl:flex-row gap-[60px]">
@@ -58,10 +58,10 @@ const Contact = () => {
                   Let&apos;s work together
                 </h3>
                 <p className="text-white/60">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-                  perspiciatis quae dignissimos. Est, accusantium minus dolorem
-                  quisquam ab tempora aperiam iusto culpa architecto, ipsa
-                  cumque saepe facere veritatis. Corporis, adipisci.
+                  Are you looking for a dedicated and experienced Frontend
+                  Developer to deliver modern interfaces and outstanding user
+                  experiences? Reach out to me to discuss how I can contribute
+                  to the success of your project or company!
                 </p>
                 {/* input */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -71,7 +71,7 @@ const Contact = () => {
                   <Input type="phone" placeholder="Phone number" />
                 </div>
                 {/* select */}
-                <Select>
+                {/* <Select>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a service" />
                   </SelectTrigger>
@@ -83,7 +83,7 @@ const Contact = () => {
                       <SelectItem value="mst">Logo Design</SelectItem>
                     </SelectGroup>
                   </SelectContent>
-                </Select>
+                </Select> */}
                 {/* textarea */}
                 <Textarea
                   className="h-[200px]"

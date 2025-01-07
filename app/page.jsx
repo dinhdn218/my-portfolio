@@ -3,6 +3,7 @@ import Social from "@/components/Social";
 import Stats from "@/components/Stats";
 import { Button } from "@/components/ui/button";
 import { FiDownload } from "react-icons/fi";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -16,9 +17,21 @@ export default function Home() {
               Hello I&apos;m <br />{" "}
               <span className="text-accent">Dinh Ngoc Dinh</span>
             </h1>
-            <p className="max-w-[500px] mb-9 text-white/80">
-              I excel at crafting elegant digital experiences ann I am
-              proficient in various programming languages and technologies.
+            <p className="max-w-[500px] mb-6 text-white/80">
+              I am a Frontend Developer with over 3 years of experience,
+              specializing in building and optimizing user interfaces (UI) for
+              web applications. I am proficient in technologies such as HTML,
+              CSS, JavaScript, and modern frameworks like React and Vue.js.
+            </p>
+            <p className="max-w-[500px] mb-6 text-white/80">
+              Additionally, I am skilled in version control tools like Git. I
+              have a strong passion for improving user experience (UX) and
+              constantly strive to optimize website performance for efficiency
+              and responsiveness. With a problem-solving mindset and the ability
+              to work both independently and as part of a team, I am eager to
+              contribute to the development of high-quality web projects while
+              continuously expanding my knowledge and skills in frontend
+              development.
             </p>
             {/* btn and socials */}
 
@@ -28,7 +41,13 @@ export default function Home() {
                 size="lg"
                 className="uppercase flex items-center gap-2"
               >
-                <span>Download CV</span>
+                <Link
+                  href={"/assets/cv-dinhngocdinh.pdf"}
+                  download={"cv-dinhngocdinh.pdf"}
+                  target="_blank"
+                >
+                  Download CV
+                </Link>
                 <FiDownload className="text-xl" />
               </Button>
               <div className="mb-8 xl:mb-0">

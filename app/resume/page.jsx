@@ -8,7 +8,9 @@ import {
   FaReact,
   FaFigma,
   FaNodeJs,
+  FaCommentDots,
 } from "react-icons/fa";
+import { AiOutlineEllipsis } from "react-icons/ai";
 import { SiTailwindcss, SiNextdotjs } from "react-icons/si";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -23,8 +25,7 @@ import { motion } from "framer-motion";
 const experience = {
   icon: "/assets/resume/badge.svg",
   title: "My experience",
-  description:
-    "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit ea qui ipsam, fugiat atque quibusdam enim facilis quos, dicta ut sunt omnis nisi amet consequuntur corporis sit. Deleniti, possimus temporibus!",
+  description: "",
   items: [
     {
       company: "Sunteco Jsc",
@@ -52,8 +53,7 @@ const experience = {
 const education = {
   icon: "/assets/resume/badge.svg",
   title: "My education",
-  description:
-    "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit ea qui ipsam, fugiat atque quibusdam enim facilis quos, dicta ut sunt omnis nisi amet consequuntur corporis sit. Deleniti, possimus temporibus!",
+  description: "",
   items: [
     {
       institution: "Agile Academy",
@@ -70,8 +70,7 @@ const education = {
 
 const skills = {
   title: "My skills",
-  description:
-    "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit ea qui ipsam, fugiat atque quibusdam enim facilis quos, dicta ut sunt omnis nisi amet consequuntur corporis sit. Deleniti, possimus temporibus!",
+  description: "",
   skillList: [
     {
       icon: <FaHtml5 />,
@@ -109,13 +108,16 @@ const skills = {
       icon: <FaFigma />,
       name: "Figma",
     },
+    {
+      icon: <AiOutlineEllipsis />,
+      name: "Etc.",
+    },
   ],
 };
 
 const about = {
   title: "About me",
-  description:
-    "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit ea qui ipsam, fugiat atque quibusdam enim facilis quos, dicta ut sunt omnis nisi amet consequuntur corporis sit. Deleniti, possimus temporibus!",
+  description: "I'm Funny!",
   info: [
     {
       fieldName: "Name",
@@ -127,7 +129,7 @@ const about = {
     },
     {
       fieldName: "Experience",
-      fieldValue: "4+ Years",
+      fieldValue: "3+ Years",
     },
     {
       fieldName: "Nationality",
@@ -136,10 +138,6 @@ const about = {
     {
       fieldName: "Email",
       fieldValue: "dinhdn218@gmail.com",
-    },
-    {
-      fieldName: "Freelance",
-      fieldValue: "Available",
     },
     {
       fieldName: "Languages",

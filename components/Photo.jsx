@@ -32,7 +32,7 @@ const Photo = () => {
           className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]"
         >
           <Image
-            src={"/assets/photo5.jpg"}
+            src={"/assets/avatar.jpg"}
             priority
             quality={100}
             fill

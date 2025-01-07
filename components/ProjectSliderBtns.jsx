@@ -4,7 +4,7 @@ import React from "react";
 import { useSwiper } from "swiper/react";
 import { PiCaretLeftBold, PiCaretRightBold } from "react-icons/pi";
 
-const WorkSliderBtns = ({ containerStyles, btnStyles, iconStyles }) => {
+const ProjectSliderBtns = ({ containerStyles, btnStyles, iconStyles }) => {
   const swiper = useSwiper();
 
   return (
@@ -19,4 +19,4 @@ const WorkSliderBtns = ({ containerStyles, btnStyles, iconStyles }) => {
   );
 };
 
-export default WorkSliderBtns;
+export default ProjectSliderBtns;
