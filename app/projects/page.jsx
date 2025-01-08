@@ -53,43 +53,73 @@ const projects = [
   {
     num: "02",
     category: "fullstack",
-    title: "Task Management",
-    description:
-      "A task management app helps users organize, track, and complete personal tasks. It provides features such as creating task lists, tracking progress, and updating task statuses.",
+    title: "Learning Management",
+    description: "Keep track of what you are learning.",
     href: "",
     stack: [
       {
-        name: "Next.js",
+        name: "ReactJS",
       },
       {
-        name: "Tailwind.css",
+        name: "NodeJS",
       },
       {
-        name: "Node.js",
+        name: "ExpressJS",
+      },
+      {
+        name: "React Bootstrap",
+      },
+      {
+        name: "MongoDB",
       },
     ],
-    image: "/assets/project/thumb2.png",
+    image: "/assets/project/learnit-thumb.png",
     live: "",
-    github: "",
+    github: "https://github.com/dinhdn218/mern-app",
   },
   {
     num: "03",
     category: "frontend",
-    title: "Project 02",
+    title: "PSD2HTML",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores ea repellendus distinctio quasi maxime cupiditate. Sint aperiam aliquid rerum consequatur iure architecto, fugit, rem aliquam, est eveniet dolorem hic sit.",
+      "Converting a PSD (Photoshop) file to an HTML file is the process of transforming a graphic design into HTML and CSS code for rendering in a web browser.",
     href: "",
     stack: [
       {
-        name: "Next.js",
+        name: "HTML",
       },
       {
-        name: "Tailwind.css",
+        name: "CSS",
+      },
+      {
+        name: "JavaScript",
       },
     ],
-    image: "/assets/project/thumb3.png",
-    live: "",
-    github: "",
+    image: "/assets/project/psd2html-thumb.png",
+    live: "https://psd-2-html.vercel.app/",
+    github: "https://github.com/dinhdn218/PSD2HTML",
+  },
+  {
+    num: "04",
+    category: "frontend",
+    title: "MP3 Player",
+    description:
+      "The MP3 Player application is software that allows users to play and manage MP3 audio files. It offers basic features such as creating playlists, adjusting volume, skipping tracks, shuffle playback, and repeat mode. The interface is typically user-friendly and easy to navigate, making it suitable for all types of users.",
+    href: "",
+    stack: [
+      {
+        name: "HTML",
+      },
+      {
+        name: "CSS",
+      },
+      {
+        name: "JavaScript",
+      },
+    ],
+    image: "/assets/project/mp3player-thumb.png",
+    live: "https://mp-3-player.vercel.app/",
+    github: "https://github.com/dinhdn218/MP3-Player",
   },
 ];
 
