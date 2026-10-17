@@ -19,7 +19,7 @@ type Props = {
   totalCommits: number;
 };
 
-const DEFAULT_READOUT = "Point at a cell to see the count.";
+const DEFAULT_READOUT = "Point at or tap a cell to see the count.";
 
 export function ProductionLog({ months, rows, totalCommits }: Props) {
   const [readout, setReadout] = useState(DEFAULT_READOUT);
@@ -42,8 +42,10 @@ export function ProductionLog({ months, rows, totalCommits }: Props) {
   }, []);
   const offBranch = rows.filter((r) => r.branch !== "prod");
 
-  const grid = { gridTemplateColumns: `172px repeat(${months.length}, minmax(22px, 1fr)) 52px` };
-  const sticky = "sticky left-0 z-[1] bg-surface";
+  // Below md each product takes two lines (name and total, then a full-width strip), so all months fit without sideways scrolling.
+  const grid =
+    "grid grid-cols-[repeat(var(--months),minmax(0,1fr))] gap-x-[3px] gap-y-1 tabular-nums md:grid-cols-[minmax(110px,172px)_repeat(var(--months),minmax(18px,1fr))_44px] md:gap-1";
+  const labelCell = "max-md:hidden";
   // stagger index for the load animation, counted over non-empty cells row by row
   const offsets = rows.map((_, idx) => rows.slice(0, idx).reduce((n, r) => n + r.series.filter(Boolean).length, 0));
 
@@ -74,54 +76,52 @@ export function ProductionLog({ months, rows, totalCommits }: Props) {
           </dl>
         </div>
 
-        <div className="-mx-1 overflow-x-auto p-1 [scrollbar-width:thin]" tabIndex={0} aria-label="Commit heatmap. Scrolls sideways on small screens.">
-          <div
-            className={`grid min-w-[760px] gap-1 tabular-nums ${booting ? "heat-boot" : ""}`}
-            style={grid}
-            onMouseLeave={() => !pinned && setReadout(DEFAULT_READOUT)}
-          >
-            {/* monthly totals */}
-            <div className={`${sticky} flex items-end pb-0.5 font-mono text-[11.5px] text-ink-3`}>All / month</div>
-            {totals.map((v, i) => (
-              <div
-                key={months[i]}
-                title={`${monthLabel(months[i])} · ${v} commits`}
-                onMouseEnter={() => setReadout(`All products · ${monthLabel(months[i])} · ${v} commits`)}
-                className="relative flex h-14 flex-col justify-end"
-              >
-                {v === peak && (
-                  <em className="absolute -top-0.5 left-1/2 -translate-x-1/2 font-mono text-[11px] font-semibold text-ink not-italic">{v}</em>
-                )}
-                <i
-                  className={`block min-h-0.5 rounded-t-[3px] rounded-b-[1px] ${v === peak ? "bg-heat-4" : "bg-heat-2"}`}
-                  style={{ height: `${Math.max(2, Math.round((v / peak) * 40))}px` }}
-                />
-              </div>
-            ))}
-            <div className="flex items-end justify-end font-mono text-[11px] tracking-[0.06em] text-ink-3 uppercase">total</div>
+        <div
+          className={`${grid} ${booting ? "heat-boot" : ""}`}
+          style={{ "--months": months.length } as CSSProperties}
+          onMouseLeave={() => !pinned && setReadout(DEFAULT_READOUT)}
+        >
+          {/* monthly totals */}
+          <div className="flex items-end pb-0.5 font-mono text-[11.5px] text-ink-3 max-md:col-span-full">All / month</div>
+          {totals.map((v, i) => (
+            <div
+              key={months[i]}
+              title={`${monthLabel(months[i])} · ${v} commits`}
+              onMouseEnter={() => setReadout(`All products · ${monthLabel(months[i])} · ${v} commits`)}
+              className="relative flex h-14 flex-col justify-end"
+            >
+              {v === peak && (
+                <em className="absolute -top-0.5 left-1/2 -translate-x-1/2 font-mono text-[11px] font-semibold text-ink not-italic">{v}</em>
+              )}
+              <i
+                className={`block min-h-0.5 rounded-t-[3px] rounded-b-[1px] ${v === peak ? "bg-heat-4" : "bg-heat-2"}`}
+                style={{ height: `${Math.max(2, Math.round((v / peak) * 40))}px` }}
+              />
+            </div>
+          ))}
+          <div className={`${labelCell} flex items-end justify-end font-mono text-[11px] tracking-[0.06em] text-ink-3 uppercase`}>total</div>
 
-            {/* years */}
-            <div className={sticky} />
-            {years.map((y) => (
-              <div key={y.year} style={{ gridColumn: `span ${y.span}` }} className="border-l border-line pl-1.5 font-mono text-[11.5px] tracking-[0.04em] text-ink-3">
-                {y.year}
-              </div>
-            ))}
-            <div />
+          {/* years */}
+          <div className={labelCell} />
+          {years.map((y) => (
+            <div key={y.year} style={{ gridColumn: `span ${y.span}` }} className="border-l border-line pl-1.5 font-mono text-[11.5px] tracking-[0.04em] text-ink-3">
+              {y.year}
+            </div>
+          ))}
+          <div className={labelCell} />
 
-            {/* month initials */}
-            <div className={sticky} />
-            {months.map((m) => (
-              <div key={m} className="text-center font-mono text-[11px] text-ink-3">
-                {monthInitial(m)}
-              </div>
-            ))}
-            <div />
+          {/* month initials */}
+          <div className={labelCell} />
+          {months.map((m) => (
+            <div key={m} className="text-center font-mono text-[11px] text-ink-3">
+              {monthInitial(m)}
+            </div>
+          ))}
+          <div className={labelCell} />
 
-            {rows.map((r, ri) => (
-              <Row key={r.id} row={r} months={months} sticky={sticky} pinned={pinned} startIndex={offsets[ri]} onRead={setReadout} onPin={(key, msg) => { setPinned(key); setReadout(msg); }} />
-            ))}
-          </div>
+          {rows.map((r, ri) => (
+            <Row key={r.id} row={r} months={months} pinned={pinned} startIndex={offsets[ri]} onRead={setReadout} onPin={(key, msg) => { setPinned(key); setReadout(msg); }} />
+          ))}
         </div>
 
         <div className="mt-4 flex flex-wrap justify-between gap-x-6 gap-y-3 text-[13px] text-ink-2">
@@ -153,7 +153,6 @@ export function ProductionLog({ months, rows, totalCommits }: Props) {
 function Row({
   row,
   months,
-  sticky,
   pinned,
   startIndex,
   onRead,
@@ -161,7 +160,6 @@ function Row({
 }: {
   row: LogRow;
   months: string[];
-  sticky: string;
   pinned: string | null;
   startIndex: number;
   onRead: (msg: string) => void;
@@ -173,10 +171,13 @@ function Row({
       <a
         href={`#p-${row.id}`}
         aria-label={`${row.name}, ${row.total} commits, ${monthLabel(row.first)} to ${monthLabel(row.last)}`}
-        className={`${sticky} flex items-center overflow-hidden rounded pr-2 text-[13.5px] font-medium text-ellipsis whitespace-nowrap text-ink no-underline hover:text-accent`}
+        className="flex min-w-0 items-center gap-2 rounded pr-2 text-[13.5px] font-medium whitespace-nowrap text-ink no-underline hover:text-accent max-md:col-span-full max-md:mt-2 max-md:pr-0"
       >
-        {row.name}
-        {row.branch !== "prod" && <small className="ml-1 font-normal text-ink-3">*</small>}
+        <span className="truncate">
+          {row.name}
+          {row.branch !== "prod" && <small className="ml-1 font-normal text-ink-3">*</small>}
+        </span>
+        <span className="ml-auto font-mono text-[12.5px] font-normal text-ink-2 md:hidden">{row.total}</span>
       </a>
       {row.series.map((v, ci) => {
         const key = `${row.id}:${months[ci]}`;
@@ -195,7 +196,7 @@ function Row({
           />
         );
       })}
-      <span className="flex items-center justify-end font-mono text-[12.5px] text-ink-2">{row.total}</span>
+      <span className="flex items-center justify-end font-mono text-[12.5px] text-ink-2 max-md:hidden">{row.total}</span>
     </>
   );
 }

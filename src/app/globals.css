@@ -219,11 +219,16 @@
   [data-l="3"] { background: var(--heat-3); }
   [data-l="4"] { background: var(--heat-4); }
 
+  /* square at every width: the md+ grid gives each month column at least 18px */
   .heat-cell {
     aspect-ratio: 1;
-    min-height: 18px;
-    border-radius: 4px;
+    border-radius: 3px;
     cursor: default;
+  }
+  @media (width >= 48rem) {
+    .heat-cell {
+      border-radius: 4px;
+    }
   }
   .heat-cell:hover,
   .heat-cell[data-on="true"] {
