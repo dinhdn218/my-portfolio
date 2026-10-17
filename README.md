@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# dnd-portfolio
 
-## Getting Started
+Portfolio of **Đinh Ngọc Định**, fullstack developer (frontend-first) in Hà Nội.
 
-First, run the development server:
+The page opens with a production log: a heatmap of my commits to each company repo's `prod` branch, month by month. Every project entry below it carries its own commit strip and a feature list taken from those commits.
+
+**Stack:** Next.js 16 (App Router, every route prerendered as static HTML), React 19, TypeScript, Tailwind CSS 4, self-hosted fonts via Fontsource (Archivo, Be Vietnam Pro, JetBrains Mono). No UI library and no runtime data fetching: the whole site is prerendered.
+
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build
+npm run typecheck
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Edit the content
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+All copy lives in `src/data/`, separate from the components:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| File | What it holds |
+| --- | --- |
+| `profile.ts` | Name, role, contact links, current company, optional CV path |
+| `projects.ts` | Company projects, filter categories and feature lists |
+| `side-projects.ts` | Side projects and the "Earlier" line |
+| `experience.ts` | Jobs, education, awards, skills |
+| `commits.json` | Commit counts per repo per month (generated, see below) |
 
-## Learn More
+Each company project points at a repo folder name through its `repo` field; that name must exist in `commits.json`.
 
-To learn more about Next.js, take a look at the following resources:
+## Refresh the commit counts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`scripts/count-commits.mjs` reads your local clones and rewrites `src/data/commits.json`. It counts non-merge commits by one author on `origin/prod` (or `prod`), and falls back to the current branch when a repo has no prod branch.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# fetch first so origin/prod is up to date, then:
+npm run commits -- "D:\projects-in-company" --author dinhdn218@gmail.com --since 2025-04-01
+```
+
+Totals, month range, repo count, the heatmap and each project's "Active" period all update from that file.
+
+## Add a CV download
+
+Export the CV to PDF, save it as `public/cv.pdf`, then set `cvPath: "/cv.pdf"` in `src/data/profile.ts`. A "Download CV" button appears in the hero.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push this folder to GitHub.
+2. Import the repo in Vercel (framework preset: Next.js, no extra settings).
+3. Set `NEXT_PUBLIC_SITE_URL` to the final URL (used for metadata, sitemap and robots).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To keep the existing address `dnd-portfolio.vercel.app`, either push this code to the `my-portfolio` repo that project is already linked to, or move that domain to the new project under **Settings → Domains**.
