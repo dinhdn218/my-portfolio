@@ -1,3 +1,5 @@
+import Image from "next/image";
+import avatar from "@/assets/avatar.jpg";
 import { profile, yearsOfExperience } from "@/data/profile";
 import { CopyChip } from "./CopyChip";
 
@@ -7,9 +9,19 @@ const btn =
 export function Hero() {
   return (
     <section className="wrap pt-[clamp(44px,8vw,104px)] pb-[clamp(28px,4vw,44px)]">
-      <p className="eyebrow text-ink-2">
-        {profile.location} · {yearsOfExperience()} years building for the web
-      </p>
+      <div className="flex items-center gap-3.5">
+        <Image
+          src={avatar}
+          alt={profile.name}
+          width={64}
+          height={64}
+          loading="eager"
+          className="size-14 flex-none rounded-full object-cover ring-1 ring-line sm:size-16"
+        />
+        <p className="eyebrow text-ink-2">
+          {profile.location} · {yearsOfExperience()} years building for the web
+        </p>
+      </div>
       <h1 className="display mt-[18px] text-[clamp(44px,10vw,132px)] leading-none font-[850] tracking-[-0.025em]">
         {profile.nameLines[0]} <span className="block text-accent">{profile.nameLines[1]}</span>
       </h1>
