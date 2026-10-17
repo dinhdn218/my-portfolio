@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: profile.name,
     locale: "en_US",
   },
-  twitter: { card: "summary", title: `${profile.name} · ${profile.role}`, description },
+  twitter: { card: "summary_large_image", title: `${profile.name} · ${profile.role}`, description },
 };
 
 export const viewport: Viewport = {
