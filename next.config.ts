@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
       { source: "/projects", destination: "/#work", permanent: true },
       { source: "/services", destination: "/#skills", permanent: true },
       { source: "/contact", destination: "/#contact", permanent: true },
-      { source: "/assets/cv-dinhngocdinh.pdf", destination: "/", permanent: false },
+      { source: "/assets/cv-dinhngocdinh.pdf", destination: "/cv.pdf", permanent: false },
     ];
   },
 };

@@ -16,7 +16,7 @@ export const profile = {
     facebook: "https://facebook.com/dinhdn218",
   },
   /** Put an exported CV at public/cv.pdf and set this to "/cv.pdf" to show a download button. */
-  cvPath: null as string | null,
+  cvPath: "/cv.pdf" as string | null,
   company: {
     name: "NetSpace",
     legalName: "Công ty CP Công nghệ & Truyền thông Không gian số",
