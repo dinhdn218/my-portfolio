@@ -9,17 +9,23 @@ export function level(count: number): 0 | 1 | 2 | 3 | 4 {
   return 4;
 }
 
-export function monthLabel(key: string): string {
+export function monthLabel(key: string, language: "en" | "vi" = "en"): string {
   const [y, m] = key.split("-").map(Number);
+  if (language === "vi") return `Tháng ${m}/${y}`;
   return `${MONTH_NAMES[m - 1]} ${y}`;
 }
 
-export function monthInitial(key: string): string {
+export function monthInitial(key: string, language: "en" | "vi" = "en"): string {
+  if (language === "vi") return String(Number(key.split("-")[1]));
   return MONTH_NAMES[Number(key.split("-")[1]) - 1].charAt(0);
 }
 
 /** "Jul – Oct 2026", "Apr 2025", "Jul 2025 – Oct 2026" */
-export function periodLabel(first: string, last: string): string {
+export function periodLabel(first: string, last: string, language: "en" | "vi" = "en"): string {
+  if (language === "vi") {
+    const date = (key: string) => { const [y, m] = key.split("-"); return `${m}/${y}`; };
+    return first === last ? date(first) : `${date(first)} – ${date(last)}`;
+  }
   if (first === last) return monthLabel(first);
   const [fy] = first.split("-");
   const [ly] = last.split("-");

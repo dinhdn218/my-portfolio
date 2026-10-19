@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { level, periodLabel } from "@/lib/months";
 import type { CompanyProject, ProjectCategory } from "@/lib/types";
 import { Stack } from "./SectionHead";
+import { useLanguage } from "./LanguageProvider";
 
 export type ProjectWithStats = CompanyProject & {
   stats: { branch: string; total: number; first: string; last: string; series: number[] };
@@ -18,6 +19,7 @@ export function WorkFilters({
   categories: { id: Filter; label: string }[];
   projects: ProjectWithStats[];
 }) {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState<Filter>("all");
   const visibleIds = projects.filter((p) => filter === "all" || p.category === filter).map((p) => p.id);
 
@@ -36,7 +38,7 @@ export function WorkFilters({
 
   return (
     <>
-      <div className="mb-7 flex flex-wrap gap-2" role="group" aria-label="Filter projects">
+      <div className="mb-7 flex flex-wrap gap-2" role="group" aria-label={t("Filter projects")}>
         {categories.map((c) => {
           const count = c.id === "all" ? projects.length : projects.filter((p) => p.category === c.id).length;
           if (count === 0) return null;
@@ -51,7 +53,7 @@ export function WorkFilters({
                 active ? "border-ink bg-ink text-paper" : "border-line bg-surface text-ink-2 hover:border-ink-3 hover:text-ink"
               }`}
             >
-              {c.label}
+              {t(c.label)}
               <span className={`font-mono text-xs ${active ? "text-paper/70" : "text-ink-3"}`}>{count}</span>
             </button>
           );
@@ -68,9 +70,10 @@ export function WorkFilters({
 }
 
 function ProjectEntry({ project: p, first, hidden }: { project: ProjectWithStats; first: boolean; hidden: boolean }) {
+  const { t, language } = useLanguage();
   const facts = [
-    { label: "Commits", value: `${p.stats.total} to ${p.stats.branch}` },
-    { label: "Active", value: periodLabel(p.stats.first, p.stats.last) },
+    { label: "Commits", value: t("{count} to {branch}", { count: p.stats.total, branch: p.stats.branch }) },
+    { label: "Active", value: periodLabel(p.stats.first, p.stats.last, language) },
     ...(p.extraFacts ?? []),
   ];
 
@@ -83,20 +86,20 @@ function ProjectEntry({ project: p, first, hidden }: { project: ProjectWithStats
       }`}
     >
       <div className="flex min-w-0 flex-col gap-2.5">
-        <p className="font-mono text-xs tracking-[0.06em] text-ink-2 uppercase">{p.kind}</p>
+        <p className="font-mono text-xs tracking-[0.06em] text-ink-2 uppercase">{t(p.kind)}</p>
         <h3 className="font-display text-[clamp(22px,2.4vw,28px)] leading-[1.12] font-extrabold tracking-[-0.01em] [font-stretch:110%]">{p.name}</h3>
         {p.url ? (
           <a href={p.url} target="_blank" rel="noopener" className="font-mono text-sm font-medium break-all">
             {p.url.replace(/^https?:\/\//, "")} ↗
           </a>
         ) : (
-          <span className="font-mono text-sm text-ink-3">{p.urlNote}</span>
+          <span className="font-mono text-sm text-ink-3">{p.urlNote && t(p.urlNote)}</span>
         )}
         <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-3.5 gap-y-1 text-[13.5px]">
           {facts.map((f) => (
             <div key={f.label} className="contents">
-              <dt className="text-ink-3">{f.label}</dt>
-              <dd className="font-mono text-[13px] text-ink tabular-nums">{f.value}</dd>
+              <dt className="text-ink-3">{t(f.label)}</dt>
+              <dd className="font-mono text-[13px] text-ink tabular-nums">{t(f.value)}</dd>
             </div>
           ))}
         </dl>
@@ -108,11 +111,11 @@ function ProjectEntry({ project: p, first, hidden }: { project: ProjectWithStats
       </div>
 
       <div className="flex min-w-0 flex-col gap-4">
-        <p className="max-w-[66ch] text-[17px] leading-relaxed text-ink">{p.intro}</p>
+        <p className="max-w-[66ch] text-[17px] leading-relaxed text-ink">{t(p.intro)}</p>
         <ul className="bullets max-w-[72ch] text-[15.5px] leading-[1.58]">
           {p.bullets.map((b) => (
             <li key={b.label}>
-              <b>{b.label}.</b> {b.text}
+              <b>{t(b.label)}.</b> {t(b.text)}
             </li>
           ))}
         </ul>

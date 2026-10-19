@@ -29,6 +29,14 @@ All copy lives in `src/data/`, separate from the components:
 
 Each company project points at a repo folder name through its `repo` field; that name must exist in `commits.json`.
 
+## Language and theme
+
+The header switches between English and Vietnamese and remembers the language and theme in localStorage. English is the default language; the theme follows the device until the visitor chooses one. The theme button shows the icon of the mode it will switch to.
+
+English content stays in the existing data files. Add exact English-to-Vietnamese entries to `src/data/content-vi.ts` for project and career content, and `src/data/ui-vi.ts` for interface labels. Keep product and technology names unchanged. The CV remains the same PDF in both languages.
+
+Run `node scripts/check-translations.cjs` to check translation coverage and placeholders. With the local server running, `node scripts/check-preferences.mjs` checks switching, persistence, and responsive widths in an isolated headless Edge profile on Windows.
+
 ## Refresh the commit counts
 
 `scripts/count-commits.mjs` reads your local clones and rewrites `src/data/commits.json`. It counts non-merge commits by one author on `origin/prod` (or `prod`), and falls back to the current branch when a repo has no prod branch.

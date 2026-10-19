@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Follow the pre-paint theme script before React hydrates. */
+[data-theme-icon="sun"] { display: none; }
+:root[data-theme="dark"] [data-theme-icon="sun"] { display: block; }
+:root[data-theme="dark"] [data-theme-icon="moon"] { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-theme-icon="sun"] { display: block; }
+  :root:not([data-theme="light"]) [data-theme-icon="moon"] { display: none; }
+}
+
 /*
   Layout: a release log. A wide display name, a commit heatmap as the hero,
   then each project as a log entry that carries its own commit strip.

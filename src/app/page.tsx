@@ -1,10 +1,9 @@
 import { Hero } from "@/components/Hero";
 import { ProductionLog, type LogRow } from "@/components/ProductionLog";
-import { SectionHead } from "@/components/SectionHead";
+import { WorkIntro } from "@/components/WorkIntro";
 import { Contact, Experience, SideProjects, Skills } from "@/components/Sections";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WorkFilters, type ProjectWithStats } from "@/components/WorkSection";
-import { profile } from "@/data/profile";
 import { categories, companyProjects } from "@/data/projects";
 import { commitSummary, monthRange, repoStats } from "@/lib/commits";
 
@@ -28,10 +27,7 @@ export default function Home() {
 
         <section id="work" aria-labelledby="work-title" className="border-t border-line py-[clamp(56px,8vw,96px)]">
           <div className="wrap">
-            <SectionHead id="work-title" eyebrow={`${profile.company.name} · ${profile.company.since} – now`} title={`Products I shipped at ${profile.company.name}`}>
-              {profile.company.name} ({profile.company.legalName}) builds media, PR and creator-economy products in Hà Nội. Each feature list below
-              comes from my own commits on the production branch.
-            </SectionHead>
+            <WorkIntro />
             <WorkFilters categories={categories} projects={projects} />
           </div>
         </section>

@@ -7,6 +7,7 @@ import "@fontsource/be-vietnam-pro/700.css";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 import { profile } from "@/data/profile";
+import { LanguageProvider } from "@/components/LanguageProvider";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dnd-portfolio.vercel.app";
 const description =
@@ -46,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>{children}</body>
+      <body><LanguageProvider>{children}</LanguageProvider></body>
     </html>
   );
 }

@@ -1,9 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useLanguage } from "./LanguageProvider";
 
 /** Shows a value as selectable text with a copy button; falls back to selecting the text if the clipboard is blocked. */
 export function CopyChip({ value, display, label = "Copy" }: { value: string; display?: string; label?: string }) {
+  const { t } = useLanguage();
   const [state, setState] = useState<"idle" | "copied" | "selected">("idle");
   const textRef = useRef<HTMLSpanElement>(null);
 
@@ -39,7 +41,7 @@ export function CopyChip({ value, display, label = "Copy" }: { value: string; di
         className="cursor-pointer border-l border-line px-3 text-[13px] font-semibold whitespace-nowrap text-ink-2 hover:bg-accent-soft hover:text-ink"
         aria-live="polite"
       >
-        {state === "copied" ? "Copied" : state === "selected" ? "Press Ctrl+C" : label}
+        {t(state === "copied" ? "Copied" : state === "selected" ? "Press Ctrl+C" : label)}
       </button>
     </span>
   );
